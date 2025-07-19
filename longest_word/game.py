@@ -12,6 +12,7 @@ Classes:
 
 import string
 import random
+import requests
 
 class Game:
     '''
@@ -37,6 +38,17 @@ class Game:
             else:
                 return False
         return True
+
+    def is_valid(self, word):
+        # [...]
+
+        return self.__check_dictionary(word)
+
+    @staticmethod
+    def __check_dictionary(word):
+        response = requests.get(f"https://dictionary.lewagon.com/{word}")
+        json_response = response.json()
+        return json_response['found']
 
     def get_grid(self) -> list:
         """Return the current grid"""
